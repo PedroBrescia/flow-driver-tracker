@@ -275,6 +275,9 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
       title: "Logout",
       description: 'Logout realizado com sucesso.',
     });
+    
+    // Navigate to login after logout
+    window.location.href = '/auth/login';
   }, [toast, stopLocationTracking]);
 
   const resetInactivityTimer = useCallback(() => {
@@ -397,6 +400,9 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
           title: "Sucesso",
           description: mockResponse.message,
         });
+        
+        // Navigate to app after successful login
+        window.location.href = '/app';
       } else {
         toast({
           title: "Erro",

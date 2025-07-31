@@ -1,29 +1,31 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AppProvider } from "@/hooks/useAppState";
-import Index from "./pages/Index";
+import RootLayout from "./app/layout";
+import AuthLayout from "./app/(auth)/layout";
+import LoginPage from "./app/(auth)/login";
+import AppLayout from "./app/(app)/layout";
+import DashboardPage from "./app/(app)/dashboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <AppProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
-    </AppProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<RootLayout />}>
+          <Route path="auth" element={<AuthLayout />}>
+            <Route path="login" element={<LoginPage />} />
+            <Route index element={<LoginPage />} />
+          </Route>
+          <Route path="app" element={<AppLayout />}>
+            <Route index element={<DashboardPage />} />
+          </Route>
+          <Route index element={<LoginPage />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   </QueryClientProvider>
 );
 

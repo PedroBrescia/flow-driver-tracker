@@ -25,18 +25,19 @@ export default function OperationalButtons({
     <Card className="p-6 shadow-md">
       <h3 className="text-lg font-semibold text-foreground mb-6">Controles Operacionais</h3>
       
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3">
+      {/* Enhanced grid layout for better tablet experience */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 gap-3 lg:gap-4">
         {buttons.map((button) => (
           <Button
             key={button.id}
             variant={activeButton === button.id ? "operational_active" : "operational"}
             onClick={() => onButtonPress(button.id)}
-            className="h-auto p-3 flex flex-col items-center justify-center text-center min-h-[80px] hover:shadow-md transition-all duration-200"
+            className="h-auto p-3 lg:p-4 flex flex-col items-center justify-center text-center min-h-[80px] lg:min-h-[100px] hover:shadow-md transition-all duration-200 text-xs lg:text-sm"
           >
-            <span className="text-xs font-medium leading-tight mb-2 line-clamp-2">
+            <span className="font-medium leading-tight mb-2 line-clamp-3 text-center">
               {button.name}
             </span>
-            <span className="text-xs font-mono opacity-75">
+            <span className="text-xs font-mono opacity-75 mt-auto">
               {activeButton === button.id ? elapsedTime : '00:00'}
             </span>
           </Button>
